@@ -9,11 +9,15 @@ function getCurrentPage(){
 // Consultas
 
 
-function getProjects()
+function getProjects($id = 0)
 {
     include 'connection.php';
     try {
-        return $conn->query('SELECT idProyecto, nombre FROM proyectos');
+        if ($id > 0) {
+            return $conn->query('SELECT idProyecto, nombre FROM proyectos WHERE usuarioId = '.$id);
+        } else {
+            return $conn->query('SELECT idProyecto, nombre FROM proyectos');
+        }
     } catch (\Exception $e) {
         echo "Error!: ".$e->getMessage();
         return false;

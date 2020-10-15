@@ -20,7 +20,7 @@
             <input type="hidden" id="tipo" value="crear">
             <input type="submit" class="boton" value="Crear cuenta">
         </div>
-        <div class="campo">
+        <div class="campo link">
             <a href="login.php">Iniciar Sesión ></a>
         </div>
     </form>

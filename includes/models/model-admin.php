@@ -14,17 +14,22 @@ if ($action === 'crear') {
     try {
         $stmt = $conn->prepare("INSERT INTO usuarios (usuario, password) values (?, ?)");
         $stmt->bind_param('ss', $usuario, $hash_password);
+        // $val = $stmt->execute();
         $stmt->execute();
-        if ($stmt->affected_rows) {
+        if ($stmt->affected_rows > 0) {
             $response = array(
                 'respuesta' => 'Correcto',
                 'id_insertado' => $stmt->insert_id,
+                'error' => $stmt->error,
+                // 'bool' => $val,
                 'tipo' => $action
             );
         } else {
             $response = array(
-                'respuesta' => $stmt->error_list,
-                'error' => $stmt->error
+                'respuesta' => 'Incorrecto',
+                // 'respuesta' => $stmt->error_list,
+                'error' => $stmt->error,
+                'tipo' => $action
             );
         }
 
@@ -65,12 +70,12 @@ if ($action === 'login') {
                 );
             } else {
                 $response = array(
-                    'resultado' => 'Pass incorrecto'
+                    'respuesta' => 'Incorrecto'
                 );
             }
         } else {
             $response = array(
-                'error' => 'Usuario no existe'
+                'respuesta' => 'Incorrecto'
             );
         }
         
@@ -78,7 +83,8 @@ if ($action === 'login') {
         $conn->close();
     } catch (\Exception $e) {
         $response = array(
-            'pass' => $e->getMessage()
+            'respuesta' => 'error',
+            'msj' => $e->getMessage()
         );
     }
     echo json_encode($response);

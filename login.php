@@ -28,7 +28,7 @@
             <input type="submit" class="boton" value="Iniciar Sesión">
         </div>
 
-        <div class="campo">
+        <div class="campo link">
             <a href="crear_cuenta.php">Crear Cuenta ></a>
         </div>
     </form>
