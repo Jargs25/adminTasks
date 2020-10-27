@@ -1,9 +1,11 @@
 <?php
-$action = $_POST['action'];
-$password = $_POST['password'];
-$usuario = $_POST['usuario'];
+$action = isset($_POST['action']) ? $_POST['action'] : "";
+$password = isset($_POST['password']) ? $_POST['password'] : "";
+$usuario = isset($_POST['usuario']) ? $_POST['usuario'] : "";
 
 if ($action === 'crear') {
+    if (!credentials($usuario, $password))
+        die();
     $options = array(
         'cost' => 10
     );
@@ -45,6 +47,8 @@ if ($action === 'crear') {
 }
 
 if ($action === 'login') {
+    if (!credentials($usuario, $password))
+        die();
     include '../functions/connection.php';
     try {
         // Selecciona el admin de la bd.
@@ -88,6 +92,27 @@ if ($action === 'login') {
         );
     }
     echo json_encode($response);
+}
+
+if ($action === 'logout'){
+    session_start();
+    $_SESSION = array();
+    $response = array(
+        'respuesta' => 'correcto'
+    );
+    echo json_encode($response);
+}
+
+function credentials ($u,$p)
+{
+    if ($u == "" && $p == "") {
+        $response = array(
+            'respuesta' => 'Incorrecto'
+        );
+        echo json_encode($response);
+        return false;
+    }
+    return true;
 }
 // $arreglo = array(
 //     'respuesta' => 'Desde Model!'

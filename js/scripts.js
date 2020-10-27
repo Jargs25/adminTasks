@@ -16,6 +16,7 @@ function eventListeners() {
         //Delegation
         document.querySelector('.listado-pendientes').addEventListener('click', accionesTareas);
     }
+    document.querySelector('.barra a').addEventListener('click', logout);
 }
 
 function openMenu(e) {
@@ -446,5 +447,23 @@ function eliminarProyecto() {
         }
     }
 
+    xhr.send(datos);
+}
+
+function logout(e) {
+    e.preventDefault();
+    let datos = new FormData();
+    datos.append('action', 'logout');
+    const xhr = new XMLHttpRequest();
+    xhr.open('POST', 'includes/models/model-admin.php', true);
+    xhr.onload = function() {
+        if (this.status === 200) {
+            // console.log(JSON.parse(xhr.responseText));
+            let response = JSON.parse(xhr.responseText);
+            if (response.respuesta == 'correcto') {
+                window.location.href = e.target.getAttribute('href');
+            }
+        }
+    }
     xhr.send(datos);
 }

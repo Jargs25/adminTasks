@@ -2,13 +2,13 @@
     include 'includes/functions/functions.php';
     include 'includes/template/header.php';
 
-    session_start(); //Necesario para ver la info de la session.
+    //session_start(); //Necesario para ver la info de la session.
     // echo "<pre>";
     // var_dump($_SESSION);
     // echo "</pre>";
-    if (isset($_GET['cerrar_session'])) {
-        $_SESSION = array();
-    }
+    // if (isset($_GET['cerrar_session'])) {
+    //     $_SESSION = array();
+    // }
 ?>
 
 <div class="contenedor-formulario">
